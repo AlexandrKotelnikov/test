@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use these navigation skills or benchmark designs, please cite this repository."
+title: "LLM Navigation Lab"
+type: software
+authors:
+  - family-names: "Kotelnikov"
+    given-names: "Alexander"
+version: 0.1.0
+date-released: 2026-07-24
+license: MIT
+abstract: "Portable text-only navigation skills and reproducible benchmarks for long-running AI agents."
+keywords:
+  - artificial intelligence
+  - agent navigation
+  - llm agents
+  - evaluation
+  - goal alignment

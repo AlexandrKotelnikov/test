@@ -2,8 +2,6 @@
 
 **Portable navigation skills and reproducible benchmarks for keeping long-running AI agents aligned with accepted outcomes.**
 
-![Project Atlas explainer](assets/project-atlas-explainer-ru.png)
-
 ## Why this repository exists
 
 Long-running agents can change many files, run research, refactor architecture,
@@ -33,54 +31,35 @@ The project contains two skill families:
 
 The experiments do **not** support a universal superiority claim.
 
-- Astrolabe produced a replicated recovery-latency advantage in one complex
-  proxy-progress experiment.
+- Astrolabe produced a replicated recovery-latency advantage in one complex proxy-progress experiment.
 - Matched-state recovery found functional parity with a strong Planner baseline.
 - Atlas removed one cross-track step in both Evidence-deficit repetitions.
-- All methods tied under straightforward Alignment repair and explicit route
-  choice.
-- One micro-recovery experiment was formally rejected as `MEASUREMENT_INVALID`
-  after evaluator defects were discovered.
+- All methods tied under straightforward Alignment repair and explicit route choice.
+- One micro-recovery experiment was formally rejected as `MEASUREMENT_INVALID` after evaluator defects were discovered.
 
-See the [experiment index](experiments/README.md) and
-[research overview](docs/research-overview.md).
+See the [experiment index](experiments/README.md) and [research overview](docs/research-overview.md).
 
 ## Repository map
 
 ```text
 skills/                 portable text-only skills
 experiments/reports/    complete experimental reports
-benchmarks/reproduction frozen benchmark packages
 docs/                   methodology, timeline, limitations, case study
-assets/                 explanatory visuals
 tools/                  repository validation
 ```
 
 ## Quick start
 
-Use a skill by copying its `SKILL.md` into the instruction context of a coding or
-research agent.
+Use a skill by copying its `SKILL.md` into the instruction context of a coding or research agent.
 
 ```text
 skills/astrolabe/SKILL.md
 skills/project-atlas/SKILL.md
 ```
 
-For Project Atlas, also copy the state template and create a frozen obligation
-registry before starting substantial work.
-
-## Validate the repository
-
-```bash
-python3 tools/validate_repository.py
-python3 -m unittest discover -s tests -v
-```
-
 ## Research stance
 
-This is an experimental portfolio project. Null results, parity, evaluator
-failures, and limitations are intentionally preserved. The goal is to build
-credible agent-navigation mechanisms, not to manufacture a winning benchmark.
+This is an experimental portfolio project. Null results, parity, evaluator failures, and limitations are intentionally preserved. The goal is to build credible agent-navigation mechanisms, not to manufacture a winning benchmark.
 
 ## Languages
 
