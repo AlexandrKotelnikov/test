@@ -1,71 +1,202 @@
+<div align="center">
+
+<img src="assets/hero.svg" alt="LLM Navigation Lab — navigation protocols for long-running AI agents" width="100%" />
+
 # LLM Navigation Lab
 
-**Portable navigation skills and reproducible benchmarks for keeping long-running AI agents aligned with accepted outcomes.**
+**Portable navigation skills that help long-running AI agents distinguish real progress from activity, preserve constraints, keep evidence fresh, and stop at the accepted result.**
 
-## Why this repository exists
+[![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
+[![Research status](https://img.shields.io/badge/status-research%20prototype-7c3aed.svg)](docs/research-overview.md)
+[![Skills](https://img.shields.io/badge/skills-2-0284c7.svg)](skills/)
+[![Experiments](https://img.shields.io/badge/experiments-6-f59e0b.svg)](experiments/README.md)
 
-Long-running agents can change many files, run research, refactor architecture,
-and still fail to get closer to the user's actual goal. This repository explores
-text-only navigation protocols that distinguish **movement toward acceptance**
-from **activity that only looks productive**.
+[Try it in 2 minutes](docs/quickstart.md) · [Explore the skills](skills/) · [Read the evidence](experiments/README.md) · [Русская версия](README.ru.md)
 
-The project contains two skill families:
+</div>
 
-| Skill | Navigation model | Core question |
-|---|---|---|
-| [Astrolabe / Orbit Trap v0.3](skills/astrolabe/) | Obligations + evidence debt | Did the last action improve a required outcome or its proof? |
-| [Project Atlas v0.1.1](skills/project-atlas/) | Delivery–Evidence–Alignment coordinates | Where is the project, what is the bearing, and how direct is the route? |
+---
 
-## Key concepts
+## The problem
 
-- evidence-backed movement;
-- proxy-progress detection;
-- stale handoff revalidation;
-- frozen acceptance registries;
-- evidence invalidation after relevant changes;
-- Alignment as a non-compensable constraint;
-- route length, net progress, cross-track movement, and orbit ratio;
-- zero-write landing after verified completion.
+Long-running agents can edit dozens of files, research new frameworks, refactor architecture, and still fail to get closer to what the user will actually accept.
 
-## Findings so far
+A task list tells you that **work happened**. It does not reliably tell you:
 
-The experiments do **not** support a universal superiority claim.
+- whether a required result improved;
+- whether its proof is still fresh after later changes;
+- whether user constraints were preserved;
+- whether the agent is moving forward, sideways, backward, or in circles;
+- whether it should stop.
 
-- Astrolabe produced a replicated recovery-latency advantage in one complex proxy-progress experiment.
-- Matched-state recovery found functional parity with a strong Planner baseline.
-- Atlas removed one cross-track step in both Evidence-deficit repetitions.
-- All methods tied under straightforward Alignment repair and explicit route choice.
-- One micro-recovery experiment was formally rejected as `MEASUREMENT_INVALID` after evaluator defects were discovered.
+**LLM Navigation Lab treats agent work as navigation toward an accepted outcome.**
 
-See the [experiment index](experiments/README.md) and [research overview](docs/research-overview.md).
+## Two navigation skills
+
+| Skill | Model | Best for | Core question |
+|---|---|---|---|
+| **[Astrolabe v0.3](skills/astrolabe/)** | Required obligations + evidence debt | Research-heavy or artifact-heavy work with drift risk | Did the last action improve a required outcome or its proof? |
+| **[Project Atlas v0.1.1](skills/project-atlas/)** | `Delivery × Evidence × Alignment` coordinates | Long-running agent work with tests, constraints, and handoffs | Where is the project now, what is the bearing, and how direct is the route? |
+
+Both are:
+
+- text-only;
+- portable across agent harnesses;
+- version-controlled;
+- independent of an external server or database;
+- designed to preserve observable evidence rather than private reasoning.
+
+## Try Project Atlas in 2 minutes
+
+Copy:
+
+```text
+skills/project-atlas/SKILL.md
+skills/project-atlas/STATE_TEMPLATE.md
+```
+
+Then tell your agent:
+
+```text
+Use Project Atlas from skills/project-atlas/SKILL.md.
+Maintain ATLAS_STATE.md with Delivery, Evidence, Alignment,
+movement class, evidence freshness, route metrics, and the next bounded maneuver.
+Do not declare completion until every landing gate passes.
+```
+
+Use it on a task with multiple deliverables, explicit constraints, and verification.
+
+**[Open the complete two-minute walkthrough →](docs/quickstart.md)**
+
+## What Atlas observes
+
+```text
+P = (Delivery, Evidence, Alignment)
+G = (1.00, 1.00, 1.00)
+```
+
+- **Delivery** — the required output exists and satisfies the contract.
+- **Evidence** — acceptance checks are current and tied to the latest relevant changes.
+- **Alignment** — user intent, scope boundaries, and forbidden approaches remain intact.
+
+After each bounded maneuver, Atlas classifies movement:
+
+| Movement | Meaning |
+|---|---|
+| `APPROACH` | the project moved toward acceptance |
+| `CROSS_TRACK` | activity occurred, but not along the current bearing |
+| `RETREAT` | weighted acceptance distance increased |
+| `STATIONARY` | no observable acceptance movement |
+
+It also tracks path length, net progress, orbit ratio, stale evidence, hazards, and landing blockers.
+
+## Evidence, not marketing claims
+
+This repository preserves positive results, parity, evaluator defects, and null findings.
+
+| Experiment finding | Result |
+|---|---|
+| Complex proxy-progress recovery | Astrolabe showed a replicated local recovery-latency advantage |
+| Matched-state recovery | Strong Planner and Astrolabe were functionally tied |
+| Evidence-deficit coordinate pilot | Atlas used 4 rather than 5 steps and avoided one cross-track step in both repetitions |
+| Straightforward Alignment repair | All three methods tied |
+| Explicit route-choice pilot | All three methods selected the lower-damage route |
+| Micro-recovery pilot | Formally rejected as `MEASUREMENT_INVALID` after evaluator defects were found |
+
+**No universal superiority claim is supported yet.** That is part of the value: the project is built to improve through falsifiable tests rather than selective demos.
+
+[Read all experiment reports →](experiments/README.md)
+
+## When to use these skills
+
+Use a navigation skill when several of these are true:
+
+- the task has multiple required deliverables;
+- acceptance depends on tests, inspection, evidence, or review;
+- there are explicit constraints or forbidden approaches;
+- the work spans many agent cycles or handoffs;
+- optional research or refactoring can look productive;
+- later changes can invalidate earlier proof;
+- false completion would be expensive.
+
+Do not use them for trivial edits, short answers, or a single immediately observable deliverable.
+
+## Works with
+
+The skills are plain Markdown instruction packages. They can be adapted to any agent that can read project files and maintain a visible state artifact, including:
+
+- Codex app and CLI;
+- Claude Code;
+- Cursor;
+- GitHub Copilot agents;
+- Gemini CLI;
+- OpenCode;
+- custom agent harnesses.
+
+Harness-specific installation packages are not shipped yet. For now, copy the relevant skill folder into the project or instruction context.
 
 ## Repository map
 
 ```text
-skills/                 portable text-only skills
-experiments/reports/    complete experimental reports
-docs/                   methodology, timeline, limitations, case study
-tools/                  repository validation
+skills/
+  astrolabe/             evidence-backed obligation navigation
+  project-atlas/         coordinate-based project navigation
+experiments/
+  reports/               complete experimental reports
+  README.md              experiment index and conclusions
+docs/
+  quickstart.md          two-minute walkthrough
+  research-overview.md   research framing and methodology
+  benchmark-method.md    matched-state evaluation design
+tools/                   repository validation
+tests/                   structural and invariant tests
 ```
 
-## Quick start
+## What makes this different
 
-Use a skill by copying its `SKILL.md` into the instruction context of a coding or research agent.
+Many agent frameworks focus on planning, orchestration, memory, or tool use. This project focuses on a narrower question:
 
-```text
-skills/astrolabe/SKILL.md
-skills/project-atlas/SKILL.md
+> **How can an agent observe whether its latest action moved the project toward the result the user will accept?**
+
+Distinct mechanisms include:
+
+- frozen obligation registries;
+- evidence invalidation after relevant changes;
+- Alignment as a non-compensable landing gate;
+- cross-track and orbit detection;
+- correction through the smallest open required action;
+- stale-handoff revalidation;
+- zero-write landing after verified completion.
+
+## Contribute a real failure case
+
+The most valuable contributions are not feature requests. They are concrete situations where an agent:
+
+- completed the wrong thing;
+- kept working after success;
+- invalidated tests without rerunning them;
+- improved Delivery while violating Alignment;
+- researched endlessly;
+- followed a plan but lost the actual goal.
+
+Open an issue using the experiment template and include the task, constraints, observable trajectory, and final verifier result.
+
+## Validate locally
+
+```bash
+python3 tools/validate_repository.py
+python3 -m unittest discover -s tests -v
 ```
+
+## Status
+
+Research prototype. The next milestone is a hidden-consequence route-choice benchmark in which agents must infer evidence damage without an explicit route hint.
+
+See [ROADMAP.md](ROADMAP.md).
 
 ## Research stance
 
-This is an experimental portfolio project. Null results, parity, evaluator failures, and limitations are intentionally preserved. The goal is to build credible agent-navigation mechanisms, not to manufacture a winning benchmark.
-
-## Languages
-
-- Main documentation: English
-- [Russian overview](README.ru.md)
-- Historical reports retain the language in which they were produced.
+Null results, parity, evaluator failures, and limitations are intentionally preserved. The goal is to build credible navigation mechanisms for AI agents, not to manufacture a winning benchmark.
 
 ## License
 
