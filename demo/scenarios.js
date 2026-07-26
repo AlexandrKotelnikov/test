@@ -13,7 +13,7 @@ window.ATLAS_SCENARIOS = [
     ],
     maneuvers: [
       { id: "verify-render", title: "Run the browser-open check", detail: "Refresh one missing Evidence obligation.", delta: { d: 0, e: 0.28, a: 0 }, effects: { E1: "pass" } },
-      { id: "reconcile", title: "Reconcile source totals", detail: "Replace the stale receipt with evidence tied to the current product.", delta: { d: 0, e: 0.34, a: 0 }, effects: { E2: "pass" } },
+      { id: "reconcile", title: "Reconcile totals and run the verifier", detail: "Replace the stale receipt with proof tied to the current product and close the final Delivery check.", delta: { d: 0.08, e: 0.44, a: 0 }, effects: { E2: "pass" } },
       { id: "refactor", title: "Polish the visual design", detail: "Optional product work before verification; it invalidates current evidence.", delta: { d: 0.03, e: -0.12, a: 0 }, effects: { E2: "stale" } },
       { id: "research", title: "Research another chart library", detail: "Creates activity without improving an open obligation.", delta: { d: 0, e: 0, a: 0 } }
     ]
@@ -31,6 +31,7 @@ window.ATLAS_SCENARIOS = [
     ],
     maneuvers: [
       { id: "remove-cdn", title: "Remove the CDN dependency", detail: "Repair Alignment first; verification becomes stale after the change.", delta: { d: -0.05, e: -0.18, a: 0.58 }, effects: { A1: "pass", E1: "stale", E2: "stale" } },
+      { id: "final-verifier", title: "Run the offline final verifier", detail: "Refresh all proof after the compliant architecture is restored.", delta: { d: 0.05, e: 0.32, a: 0 }, effects: { E1: "pass", E2: "pass" } },
       { id: "add-feature", title: "Add another feature", detail: "Delivery rises slightly while the forbidden architecture remains.", delta: { d: 0, e: -0.04, a: 0 }, effects: {} },
       { id: "document-exception", title: "Document the constraint violation", detail: "Explaining a violation does not repair Alignment.", delta: { d: 0, e: 0.04, a: 0 }, effects: {} },
       { id: "refresh-tests", title: "Run tests without fixing architecture", detail: "Evidence improves, but the landing gate remains blocked by Alignment.", delta: { d: 0, e: 0.12, a: 0 }, effects: { E1: "pass" } }
@@ -40,7 +41,7 @@ window.ATLAS_SCENARIOS = [
     id: "orbit-trap",
     title: "The agent is researching instead of landing",
     description: "All required files are partially complete, but repeated framework comparisons and optional architecture work have produced three zero-movement cycles.",
-    start: { d: 0.58, e: 0.44, a: 0.92 },
+    start: { d: 0.58, e: 0.44, a: 1.0 },
     routeState: "ORBITING",
     obligations: [
       { id: "D1", text: "Complete SKILL.md protocol", status: "fail" },
@@ -51,7 +52,7 @@ window.ATLAS_SCENARIOS = [
     ],
     maneuvers: [
       { id: "finish-skill", title: "Finish the smallest open required file", detail: "Improves Delivery on a named obligation.", delta: { d: 0.22, e: 0.04, a: 0 }, effects: { D1: "pass" } },
-      { id: "write-tests", title: "Write the required behavioral tests", detail: "Closes Delivery and creates observable Evidence.", delta: { d: 0.20, e: 0.22, a: 0 }, effects: { D3: "pass", E1: "pass" } },
+      { id: "write-tests", title: "Write the required behavioral tests", detail: "Closes Delivery and creates observable Evidence.", delta: { d: 0.20, e: 0.52, a: 0 }, effects: { D3: "pass", E1: "pass" } },
       { id: "compare-framework", title: "Compare one more planning framework", detail: "No registered decision depends on it.", delta: { d: 0, e: 0, a: 0 } },
       { id: "build-dashboard", title: "Build an experiment dashboard", detail: "Attractive optional artifact outside the acceptance contract.", delta: { d: 0.02, e: 0, a: -0.08 } }
     ]
