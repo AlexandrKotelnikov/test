@@ -15,6 +15,11 @@ REQUIRED = [
     "skills/project-atlas/SKILL.md",
     "experiments/README.md",
     "docs/methodology.md",
+    "demo/index.html",
+    "demo/styles.css",
+    "demo/scenarios.js",
+    "demo/app.js",
+    "demo/README.md",
 ]
 
 REPORTS = [
@@ -65,6 +70,23 @@ def check_skill_invariants() -> None:
             fail(f"Atlas invariant missing: {phrase}")
 
 
+def check_demo() -> None:
+    html = (ROOT / "demo/index.html").read_text(encoding="utf-8")
+    scenarios = (ROOT / "demo/scenarios.js").read_text(encoding="utf-8")
+
+    for local_asset in ["styles.css", "scenarios.js", "app.js"]:
+        if local_asset not in html:
+            fail(f"demo entry point does not reference {local_asset}")
+
+    if re.search(r'<(?:script|link)[^>]+(?:src|href)=["\']https?://', html, re.IGNORECASE):
+        fail("demo must not load external scripts or styles")
+
+    scenario_ids = re.findall(r'id:\s*["\']([a-z0-9-]+)["\']', scenarios)
+    expected = {"evidence-deficit", "alignment-breach", "orbit-trap", "route-choice"}
+    if not expected.issubset(set(scenario_ids)):
+        fail("demo scenarios are incomplete")
+
+
 def check_relative_links() -> None:
     pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
     problems = []
@@ -94,6 +116,7 @@ def main() -> None:
     check_required()
     check_reports()
     check_skill_invariants()
+    check_demo()
     check_relative_links()
     check_large_files()
     print("Repository validation passed.")
