@@ -100,7 +100,8 @@
     const progress = state.initialDistance - distance(state.position);
     const ratio = progress > EPS ? state.pathLength / progress : Infinity;
     if (ratio > 2.2) return "WINDING";
-    return scenario.routeState || "DIRECT";
+    if (!state.history.length && scenario.routeState) return scenario.routeState;
+    return "DIRECT";
   }
 
   function applyManeuver(maneuver) {
