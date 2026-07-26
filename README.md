@@ -11,7 +11,7 @@
 [![Skills](https://img.shields.io/badge/skills-2-0284c7.svg)](skills/)
 [![Experiments](https://img.shields.io/badge/experiments-6-f59e0b.svg)](experiments/README.md)
 
-[▶ Launch the live simulator](https://alexandrkotelnikov.github.io/llm-navigation-lab/) · [Try it in 2 minutes](docs/quickstart.md) · [Explore the skills](skills/) · [Read the evidence](experiments/README.md) · [Русская версия](README.ru.md)
+[▶ Launch the live simulator](https://alexandrkotelnikov.github.io/llm-navigation-lab/) · [Install Atlas](install/) · [Try it in 2 minutes](docs/quickstart.md) · [Read the evidence](experiments/README.md) · [Русская версия](README.ru.md)
 
 </div>
 
@@ -53,13 +53,23 @@ The demo is a static, zero-dependency application. It can also be opened locally
 | **[Astrolabe v0.3](skills/astrolabe/)** | Required obligations + evidence debt | Research-heavy or artifact-heavy work with drift risk | Did the last action improve a required outcome or its proof? |
 | **[Project Atlas v0.1.1](skills/project-atlas/)** | `Delivery × Evidence × Alignment` coordinates | Long-running agent work with tests, constraints, and handoffs | Where is the project now, what is the bearing, and how direct is the route? |
 
-Both are:
+Both are text-only, portable, version-controlled, independent of an external server or database, and designed to preserve observable evidence rather than private reasoning.
 
-- text-only;
-- portable across agent harnesses;
-- version-controlled;
-- independent of an external server or database;
-- designed to preserve observable evidence rather than private reasoning.
+## Install Project Atlas
+
+Choose a repository-local integration:
+
+| Harness | Guide |
+|---|---|
+| Codex app, CLI, or IDE extension | [Install for Codex](install/codex/README.md) |
+| Claude Code | [Install for Claude Code](install/claude-code/README.md) |
+| Cursor | [Install for Cursor](install/cursor/README.md) |
+| Gemini CLI | [Install for Gemini CLI](install/gemini-cli/README.md) |
+| Any file-aware agent | [Generic integration](install/generic/README.md) |
+
+Every guide points to the same [shared smoke test](install/smoke-test.md), so installation is judged by visible behavior rather than by whether files were merely copied.
+
+**[Open the installation index →](install/)**
 
 ## Try Project Atlas in 2 minutes
 
@@ -94,8 +104,6 @@ G = (1.00, 1.00, 1.00)
 - **Evidence** — acceptance checks are current and tied to the latest relevant changes.
 - **Alignment** — user intent, scope boundaries, and forbidden approaches remain intact.
 
-After each bounded maneuver, Atlas classifies movement:
-
 | Movement | Meaning |
 |---|---|
 | `APPROACH` | weighted distance to acceptance decreased |
@@ -105,7 +113,7 @@ After each bounded maneuver, Atlas classifies movement:
 | `RETREAT` | weighted acceptance distance increased |
 | `LANDING` | every mandatory coordinate and obligation passes |
 
-It also tracks path length, net progress, orbit ratio, stale evidence, hazards, and landing blockers.
+Atlas also tracks path length, net progress, orbit ratio, stale evidence, hazards, and landing blockers.
 
 ## Evidence, not marketing claims
 
@@ -120,7 +128,7 @@ This repository preserves positive results, parity, evaluator defects, and null 
 | Explicit route-choice pilot | All three methods selected the lower-damage route |
 | Micro-recovery pilot | Formally rejected as `MEASUREMENT_INVALID` after evaluator defects were found |
 
-**No universal superiority claim is supported yet.** That is part of the value: the project is built to improve through falsifiable tests rather than selective demos.
+**No universal superiority claim is supported yet.** The project improves through falsifiable tests rather than selective demos.
 
 [Read all experiment reports →](experiments/README.md)
 
@@ -138,34 +146,16 @@ Use a navigation skill when several of these are true:
 
 Do not use them for trivial edits, short answers, or a single immediately observable deliverable.
 
-## Works with
-
-The skills are plain Markdown instruction packages. They can be adapted to any agent that can read project files and maintain a visible state artifact, including:
-
-- Codex app and CLI;
-- Claude Code;
-- Cursor;
-- GitHub Copilot agents;
-- Gemini CLI;
-- OpenCode;
-- custom agent harnesses.
-
-Harness-specific installation packages are not shipped yet. For now, copy the relevant skill folder into the project or instruction context.
-
 ## Repository map
 
 ```text
-skills/
-  astrolabe/             evidence-backed obligation navigation
-  project-atlas/         coordinate-based project navigation
+skills/                  portable Astrolabe and Project Atlas skills
 demo/                    zero-dependency interactive simulator
-experiments/
-  reports/               complete experimental reports
-  README.md              experiment index and conclusions
-docs/
-  quickstart.md          two-minute walkthrough
-  research-overview.md   research framing and methodology
-  benchmark-method.md    matched-state evaluation design
+install/                 harness-specific installation guides and smoke test
+experiments/reports/     complete experimental reports
+docs/                    methodology, quickstart, and research framing
+launch/                  release notes, publication drafts, and launch checklist
+assets/                  hero and social-preview artwork
 tools/                   repository validation
 tests/                   structural and invariant tests
 ```
@@ -176,28 +166,20 @@ Many agent frameworks focus on planning, orchestration, memory, or tool use. Thi
 
 > **How can an agent observe whether its latest action moved the project toward the result the user will accept?**
 
-Distinct mechanisms include:
-
-- frozen obligation registries;
-- evidence invalidation after relevant changes;
-- Alignment as a non-compensable landing gate;
-- cross-track and orbit detection;
-- correction through the smallest open required action;
-- stale-handoff revalidation;
-- zero-write landing after verified completion.
+Distinct mechanisms include frozen obligation registries, evidence invalidation, non-compensable Alignment, cross-track and orbit detection, stale-handoff revalidation, correction through the smallest open required action, and zero-write landing.
 
 ## Contribute a real failure case
 
-The most valuable contributions are not feature requests. They are concrete situations where an agent:
-
-- completed the wrong thing;
-- kept working after success;
-- invalidated tests without rerunning them;
-- improved Delivery while violating Alignment;
-- researched endlessly;
-- followed a plan but lost the actual goal.
+The most valuable contributions are concrete situations where an agent completed the wrong thing, kept working after success, invalidated tests without rerunning them, improved Delivery while violating Alignment, researched endlessly, or followed a plan but lost the actual goal.
 
 Open an issue using the experiment template and include the task, constraints, observable trajectory, and final verifier result.
+
+## Launch and reproduce
+
+- [Public launch kit](launch/)
+- [v0.2.0 release notes](launch/release-notes-v0.2.0.md)
+- [Independent reproduction request](https://github.com/AlexandrKotelnikov/llm-navigation-lab/issues/3)
+- [Next hidden-consequence benchmark](https://github.com/AlexandrKotelnikov/llm-navigation-lab/issues/1)
 
 ## Validate locally
 
@@ -210,7 +192,7 @@ The simulator itself requires no build step. Open `demo/index.html` directly in 
 
 ## Status
 
-Research prototype with an interactive simulator. The next research milestone is a hidden-consequence route-choice benchmark in which agents must infer evidence damage without an explicit route hint.
+Research prototype with an interactive simulator and repository-local installation packages. The next research milestone is a hidden-consequence route-choice benchmark in which agents must infer evidence damage without an explicit route hint.
 
 See [ROADMAP.md](ROADMAP.md).
 
