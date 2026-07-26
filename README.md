@@ -11,7 +11,7 @@
 [![Skills](https://img.shields.io/badge/skills-2-0284c7.svg)](skills/)
 [![Experiments](https://img.shields.io/badge/experiments-6-f59e0b.svg)](experiments/README.md)
 
-[Try it in 2 minutes](docs/quickstart.md) · [Explore the skills](skills/) · [Read the evidence](experiments/README.md) · [Русская версия](README.ru.md)
+[▶ Launch the live simulator](https://alexandrkotelnikov.github.io/llm-navigation-lab/) · [Try it in 2 minutes](docs/quickstart.md) · [Explore the skills](skills/) · [Read the evidence](experiments/README.md) · [Русская версия](README.ru.md)
 
 </div>
 
@@ -30,6 +30,21 @@ A task list tells you that **work happened**. It does not reliably tell you:
 - whether it should stop.
 
 **LLM Navigation Lab treats agent work as navigation toward an accepted outcome.**
+
+## Try the interactive simulator
+
+The browser-based Project Atlas simulator turns the navigation model into a concrete decision game. Choose a maneuver and watch the coordinates, obligations, route geometry, movement class, and landing gates change.
+
+**[Launch the live simulator →](https://alexandrkotelnikov.github.io/llm-navigation-lab/)**
+
+Included scenarios:
+
+1. **Evidence deficit** — the product exists, but verification is missing or stale.
+2. **Alignment breach** — functionality improved by violating a hard constraint.
+3. **Orbit trap** — repeated optional work does not close required obligations.
+4. **Route choice** — two compliant repairs create different Evidence damage.
+
+The demo is a static, zero-dependency application. It can also be opened locally from [`demo/index.html`](demo/index.html), with no server or build step.
 
 ## Two navigation skills
 
@@ -83,10 +98,12 @@ After each bounded maneuver, Atlas classifies movement:
 
 | Movement | Meaning |
 |---|---|
-| `APPROACH` | the project moved toward acceptance |
-| `CROSS_TRACK` | activity occurred, but not along the current bearing |
+| `APPROACH` | weighted distance to acceptance decreased |
+| `EVIDENCE` | the maneuver followed the dominant Evidence bearing |
+| `ALIGNMENT_RECOVERY` | a violated user constraint or forbidden approach was repaired |
+| `CROSS_TRACK` | activity occurred without material progress on the current bearing |
 | `RETREAT` | weighted acceptance distance increased |
-| `STATIONARY` | no observable acceptance movement |
+| `LANDING` | every mandatory coordinate and obligation passes |
 
 It also tracks path length, net progress, orbit ratio, stale evidence, hazards, and landing blockers.
 
@@ -141,6 +158,7 @@ Harness-specific installation packages are not shipped yet. For now, copy the re
 skills/
   astrolabe/             evidence-backed obligation navigation
   project-atlas/         coordinate-based project navigation
+demo/                    zero-dependency interactive simulator
 experiments/
   reports/               complete experimental reports
   README.md              experiment index and conclusions
@@ -188,9 +206,11 @@ python3 tools/validate_repository.py
 python3 -m unittest discover -s tests -v
 ```
 
+The simulator itself requires no build step. Open `demo/index.html` directly in a browser.
+
 ## Status
 
-Research prototype. The next milestone is a hidden-consequence route-choice benchmark in which agents must infer evidence damage without an explicit route hint.
+Research prototype with an interactive simulator. The next research milestone is a hidden-consequence route-choice benchmark in which agents must infer evidence damage without an explicit route hint.
 
 See [ROADMAP.md](ROADMAP.md).
 
