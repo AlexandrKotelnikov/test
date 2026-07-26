@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interactive Project Atlas simulator for long-running AI agent navigation." />
+  <title>Project Atlas Simulator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">LLM Navigation Lab</p>
+      <h1>Project Atlas Simulator</h1>
+      <p class="lead">Choose the next maneuver. Atlas classifies whether the agent moved toward acceptance, sideways, backward, or landed.</p>
+    </div>
+    <nav>
+      <a href="../skills/project-atlas/SKILL.md">Open SKILL.md</a>
+      <a href="../experiments/README.md">Benchmark evidence</a>
+      <a href="https://github.com/AlexandrKotelnikov/llm-navigation-lab">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="toolbar card">
+      <label for="scenario">Scenario</label>
+      <select id="scenario"></select>
+      <button id="reset" type="button">Reset route</button>
+    </section>
+
+    <section class="scenario card">
+      <div>
+        <p class="eyebrow" id="scenario-tag"></p>
+        <h2 id="scenario-title"></h2>
+        <p id="scenario-description"></p>
+      </div>
+      <div class="bearing">
+        <span>Primary bearing</span>
+        <strong id="primary-bearing"></strong>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="card coordinates">
+        <div class="section-heading">
+          <div><p class="eyebrow">Position</p><h2>Delivery × Evidence × Alignment</h2></div>
+          <span class="status-pill" id="route-state"></span>
+        </div>
+        <div class="coordinate-grid" id="coordinate-grid"></div>
+        <div class="metrics">
+          <div><span>Distance</span><strong id="distance"></strong></div>
+          <div><span>Path length</span><strong id="path-length"></strong></div>
+          <div><span>Net progress</span><strong id="net-progress"></strong></div>
+          <div><span>Orbit ratio</span><strong id="orbit-ratio"></strong></div>
+        </div>
+        <svg id="route-map" viewBox="0 0 720 250" role="img" aria-label="Route trajectory"></svg>
+      </article>
+
+      <article class="card obligations">
+        <div class="section-heading"><div><p class="eyebrow">Acceptance contract</p><h2>Obligations</h2></div></div>
+        <div id="obligations"></div>
+      </article>
+    </section>
+
+    <section class="dashboard-grid lower">
+      <article class="card">
+        <div class="section-heading"><div><p class="eyebrow">Choose one bounded action</p><h2>Next maneuver</h2></div></div>
+        <div class="maneuver-grid" id="maneuvers"></div>
+      </article>
+
+      <article class="card result-card">
+        <div class="section-heading"><div><p class="eyebrow">Official classification</p><h2 id="movement-class">READY</h2></div></div>
+        <p id="movement-explanation">Select a maneuver to begin the route.</p>
+        <div class="delta" id="delta"></div>
+        <div class="landing" id="landing"></div>
+      </article>
+    </section>
+
+    <section class="card trajectory">
+      <div class="section-heading">
+        <div><p class="eyebrow">Observable audit trail</p><h2>Trajectory</h2></div>
+        <button id="copy-prompt" type="button">Copy Atlas prompt</button>
+      </div>
+      <ol id="trajectory-list"></ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>Research prototype. Movement classes are deterministic within these educational scenarios and do not claim universal agent performance.</p>
+  </footer>
+
+  <script src="scenarios.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
