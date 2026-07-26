@@ -26,6 +26,23 @@ class RepositoryTests(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("required external server", text.lower())
 
+    def test_demo_is_static_and_zero_dependency(self):
+        html = (ROOT / "demo/index.html").read_text(encoding="utf-8")
+        for local_asset in ["styles.css", "scenarios.js", "app.js"]:
+            self.assertIn(local_asset, html)
+        self.assertNotIn("<script src=\"http", html.lower())
+        self.assertNotIn("<link href=\"http", html.lower())
+
+    def test_demo_contains_four_registered_scenarios(self):
+        scenarios = (ROOT / "demo/scenarios.js").read_text(encoding="utf-8")
+        for scenario_id in [
+            "evidence-deficit",
+            "alignment-breach",
+            "orbit-trap",
+            "route-choice",
+        ]:
+            self.assertIn(f'id: "{scenario_id}"', scenarios)
+
     def test_reports_preserve_invalid_result(self):
         report = (ROOT / "experiments/reports/03-micro-recovery.md").read_text(encoding="utf-8")
         self.assertIn("MEASUREMENT_INVALID", report)
