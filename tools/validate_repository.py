@@ -20,6 +20,18 @@ REQUIRED = [
     "demo/scenarios.js",
     "demo/app.js",
     "demo/README.md",
+    "install/README.md",
+    "install/smoke-test.md",
+    "install/codex/README.md",
+    "install/claude-code/README.md",
+    "install/cursor/README.md",
+    "install/gemini-cli/README.md",
+    "install/generic/README.md",
+    "launch/README.md",
+    "launch/release-notes-v0.2.0.md",
+    "launch/launch-checklist.md",
+    "assets/hero.svg",
+    "assets/social-preview.svg",
 ]
 
 REPORTS = [
@@ -87,6 +99,28 @@ def check_demo() -> None:
         fail("demo scenarios are incomplete")
 
 
+def check_install_guides() -> None:
+    index = (ROOT / "install/README.md").read_text(encoding="utf-8")
+    smoke = (ROOT / "install/smoke-test.md").read_text(encoding="utf-8")
+
+    for harness in ["Codex", "Claude Code", "Cursor", "Gemini CLI", "Generic"]:
+        if harness.lower() not in index.lower():
+            fail(f"install index missing harness: {harness}")
+
+    for phrase in ["ATLAS_STATE.md", "smallest open required", "landing"]:
+        if phrase.lower() not in smoke.lower():
+            fail(f"installation smoke test missing invariant: {phrase}")
+
+
+def check_launch_integrity() -> None:
+    release = (ROOT / "launch/release-notes-v0.2.0.md").read_text(encoding="utf-8")
+    launch_index = (ROOT / "launch/README.md").read_text(encoding="utf-8")
+
+    for phrase in ["no universal superiority claim", "MEASUREMENT_INVALID", "interactive"]:
+        if phrase.lower() not in (release + launch_index).lower():
+            fail(f"launch materials missing research qualification: {phrase}")
+
+
 def check_relative_links() -> None:
     pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
     problems = []
@@ -117,6 +151,8 @@ def main() -> None:
     check_reports()
     check_skill_invariants()
     check_demo()
+    check_install_guides()
+    check_launch_integrity()
     check_relative_links()
     check_large_files()
     print("Repository validation passed.")
